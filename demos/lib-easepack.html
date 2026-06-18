@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EasePack · RoughEase / SlowMo</title>
+  <link rel="stylesheet" href="demo-base.css" />
+  <style>
+    .sub { color: var(--muted); font-size: 13px; }
+    .lane { width: min(86%, 320px); display: grid; gap: 18px; }
+    .row { display: grid; grid-template-columns: 64px 1fr; align-items: center; gap: 10px; }
+    .row .lbl { font-size: 11px; color: var(--muted); font-family: "JetBrains Mono", monospace; }
+    .track { position: relative; height: 30px; border-radius: 10px; background: var(--surface); border: 1px solid var(--border); }
+    .dot { position: absolute; top: 50%; left: 4px; width: 22px; height: 22px; margin-top: -11px; border-radius: 6px; }
+    .d1 { background: #ff9d00; box-shadow: 0 0 12px rgba(255,157,0,.5); }
+    .d2 { background: #38bdf8; box-shadow: 0 0 12px rgba(56,189,248,.5); }
+  </style>
+</head>
+<body>
+  <div class="corner-tag"><span class="tag">EasePack</span></div>
+  <div class="stage">
+    <div class="lane">
+      <div class="row"><span class="lbl">rough</span><div class="track"><div class="dot d1" id="rough"></div></div></div>
+      <div class="row"><span class="lbl">slowmo</span><div class="track"><div class="dot d2" id="slow"></div></div></div>
+    </div>
+    <p class="sub">eases extras: tremor (rough) e câmera lenta</p>
+  </div>
+  <button class="replay" onclick="play()">▶ Replay</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/EasePack.min.js"></script>
+  <script>
+    gsap.registerPlugin(RoughEase, SlowMo);
+    function play() {
+      const x = "calc(100% - 26px)";
+      gsap.fromTo("#rough", { left: 4 }, { left: x, duration: 1.8,
+        ease: "rough({ strength: 1.5, points: 24, template: power1.inOut, randomize: true })",
+        repeat: 1, yoyo: true });
+      gsap.fromTo("#slow", { left: 4 }, { left: x, duration: 1.8,
+        ease: "slow(0.5, 0.8)", repeat: 1, yoyo: true });
+    }
+    play();
+  </script>
+</body>
+</html>

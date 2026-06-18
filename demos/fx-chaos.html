@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CHAOS · borrado/deformado</title>
+  <link rel="stylesheet" href="demo-base.css" />
+  <style>
+    body { background: #060507; }
+    .big {
+      color: #fff;
+      filter: url(#chaosFilter) blur(0.3px);
+      letter-spacing: -.02em;
+    }
+    .sub { color: var(--muted); font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div class="corner-tag"><span class="tag">SplitText + feDisplacement</span></div>
+
+  <svg width="0" height="0" style="position:absolute">
+    <filter id="chaosFilter">
+      <feTurbulence type="fractalNoise" baseFrequency="0.006" numOctaves="2" result="noise" id="turb" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="0" id="disp" />
+    </filter>
+  </svg>
+
+  <div class="stage">
+    <h1 class="big" id="h">CHAOS</h1>
+    <p class="sub">ruído + deslocamento animados pelo GSAP</p>
+  </div>
+  <button class="replay" onclick="play()">▶ Replay</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+  <script>
+    gsap.registerPlugin(SplitText);
+
+    // distorção líquida contínua
+    gsap.to("#disp", { attr: { scale: 38 }, duration: 1.6, repeat: -1, yoyo: true, ease: "sine.inOut" });
+    gsap.to("#turb", { attr: { baseFrequency: 0.022 }, duration: 2.4, repeat: -1, yoyo: true, ease: "sine.inOut" });
+
+    let split;
+    function play() {
+      if (split) split.revert();
+      split = new SplitText("#h", { type: "chars" });
+      gsap.from(split.chars, { opacity: 0, scale: 0.3, filter: "blur(20px)", stagger: 0.06, duration: 0.7, ease: "power2.out" });
+    }
+    play();
+  </script>
+</body>
+</html>

@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GSAP Showcase — transições & efeitos</title>
+  <meta name="description" content="Demonstração interativa das bibliotecas e transições do GSAP: ScrollTrigger, ScrollSmoother, Flip e tecnologias que combinam." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="bg-decor"></div>
+  <div class="bg-grid"></div>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="site-header">
+    <div class="logo">
+      <div class="mark">G</div>
+      <div class="txt">
+        <h1>GSAP Showcase</h1>
+        <p>Demonstração de transições e efeitos · <b>GSAP</b></p>
+      </div>
+    </div>
+    <div class="header-note">Cada aba é uma <b>biblioteca</b> · cada bloco é uma <b>transição</b></div>
+  </header>
+
+  <!-- ===================== TABS ===================== -->
+  <div class="tabs-wrap">
+    <nav class="tabs" id="tabs">
+      <button class="tab active" data-tab="scrolltrigger">ScrollTrigger <span class="num">5</span></button>
+      <button class="tab" data-tab="scrollsmoother">ScrollSmoother <span class="num">4</span></button>
+      <button class="tab" data-tab="flip">Flip <span class="num">5</span></button>
+      <button class="tab" data-tab="texto">Efeitos de Texto <span class="num">7</span></button>
+      <button class="tab" data-tab="bibliotecas">Bibliotecas GSAP <span class="num">20</span></button>
+      <button class="tab" data-tab="extras">Extras <span class="num">3</span></button>
+    </nav>
+  </div>
+
+  <main>
+    <!-- ============================================================
+         SCROLLTRIGGER
+         ============================================================ -->
+    <section class="panel active" id="panel-scrolltrigger" data-tab="scrolltrigger">
+      <div class="panel-intro">
+        <span class="eyebrow">Biblioteca 01</span>
+        <h2>GSAP ScrollTrigger</h2>
+        <p>O principal. Use quando a transição acontece <b>conforme o usuário rola a página</b>: seções fixas, animações ligadas ao scroll, snap, scroll horizontal e muito mais. <b>Role dentro de cada moldura</b> para ver o efeito.</p>
+      </div>
+
+      <article class="demo">
+        <div class="demo-info">
+          <span class="badge">1</span>
+          <h3>Seção fixa enquanto anima</h3>
+          <p class="desc">A seção trava na tela e o conteúdo anima por cima antes de liberar o scroll.</p>
+          <span class="code-tag">pin: true</span>
+        </div>
+        <div class="frame">
+          <div class="frame-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">scrolltrigger / pin</span></div>
+          <iframe class="frame-view" data-src="demos/st-pin.html" loading="lazy" title="ScrollTrigger pin"></iframe>
+        </div>
+      </article>
+
+      <article class="demo">
+        <div class="demo-info">
+          <span class="badge">2</span>
+          <h3>Animação controlada pelo scroll</h3>
+          <p class="desc">A posição da animação acompanha exatamente a barra de rolagem — para frente e para trás.</p>
+          <span class="code-tag">scrub: true</span>
+        </div>
+        <div class="frame">
+          <div class="frame-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">scrolltrigger / scrub</span></div>
+          <iframe class="frame-view" data-src="demos/st-scrub.html" loading="lazy" title="ScrollTrigger scrub"></iframe>
+        </div>
+      </article>
+
+      <article class="demo">
+        <div class="demo-info">
+          <span class="badge">3</span>
+          <h3>Troca de seção com snap</h3>
+          <p class="desc">Ao soltar o scroll, ele “encaixa” na seção mais próxima, mantendo tudo alinhado.</p>
+          <span class="code-tag">snap: 1 / (n - 1)</span>
+        </div>
+        <div class="frame">
+          <div class="frame-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">scrolltrigger / snap</span></div>
+          <iframe class="frame-view" data-src="demos/st-snap.html" loading="lazy" title="ScrollTrigger snap"></iframe>
+        </div>
+      </article>
+
+      <article class="demo">
+        <div class="demo-info">
+          <span class="badge">4</span>
+          <h3>Scroll horizontal fake</h3>
+          <p class="desc">A seção fica fixa e o scroll vertical move o conteúdo na horizontal.</p>
+          <span class="code-tag">pin + xPercent + scrub</span>
+        </div>
+        <div class="frame">
+          <div class="frame-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">scrolltrigger / horizontal</span></div>
+          <iframe class="frame-view" data-src="demos/st-horizontal.html" loading="lazy" title="ScrollTrigger horizontal"></iframe>
+        </div>
+      </article>
+
+      <article class="demo">
+        <div class="demo-info">
+          <span class="badge">5</span>
+          <h3>Hero virando a próxima seção</h3>
+          <p class="desc">O hero dá zoom, some e revela a próxima seção — tudo numa só timeline amarrada ao scroll.</p>
+          <span class="code-tag">timeline + pin + scrub</span>
+        </div>
+        <div class="frame">
+          <div class="frame-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">scrolltrigger / hero</span></div>
+          <iframe class="frame-view" data-src="demos/st-hero.html" loading="lazy" title="ScrollTrigger hero"></iframe>
+        </div>
+      </article>
+    </section>
+
+    <!-- ============================================================
+         SCROLLSMOOTHER
+         ============================================================ -->
+    <section class="panel" id="panel-scrollsmoother" data-tab="scrollsmoother">
+      <div class="panel-intro">
+        <span class="eyebrow">Biblioteca 02</span>
+        <h2>GSAP ScrollSmoother</h2>
+        <p>Use junto com o ScrollTrigger quando quiser aquele scroll <b>premium, macio, com parallax</b> e sensação de site de agência / Awwwards.</p>
+      </div>
+
+      <article class="demo">
+        <div class="demo-info">
+          <span class="badge">1</span>
+          <h3>Scroll suave</h3>
+          <p class="desc">Movimento mais fluido, com inércia, mantendo o scroll nativo (sem barra falsa).</p>
+          <span class="code-tag">smooth: 1.5</span>
+        </div>
+        <div class="frame">
+          <div class="frame-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">scrollsmoother / smooth</span></div>
+          <iframe class="frame-view" data-src="demos/ss-smooth.html" loading="lazy" title="ScrollSmoother smooth"></iframe>
+        </div>
+      </article>
+
+      <article class="demo">
+        <div class="demo-info">
+          <span class="badge">2</span>
+          <h3>Parallax</h3>
+          <p class="desc">Fundos e imagens se movem em velocidades diferentes — só com um atributo.</p>
+          <span class="code-tag">data-speed="0.5"</span>
+        </div>
+        <div class="frame">
+          <div class="frame-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">scrollsmoother / parallax</span></div>
+          <iframe class="frame-view" data-src="demos/ss-parallax.html" loading="lazy" title="ScrollSmoother parallax"></iframe>
+        </div>
+      </article>
+
+      <article class="demo">
+        <div class="demo-info">
+          <span class="badge">3</span>
+          <h3>Lag</h3>
+          <p class="desc">Elementos acompanham o scroll com um atraso elegante e se reacomodam.</p>
+          <span class="code-tag">data-lag="0.5"</span>
+        </div>
+        <div class="frame">
+          <div class="frame-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">scrollsmoother / lag</span></div>
+          <iframe class="frame-view" data-src="demos/ss-lag.html" loading="lazy" title="ScrollSmoother lag"></iframe>
+        </div>
+      </article>
+
+      <article class="demo">
+        <div class="demo-info">
+          <span class="badge">4</span>
+          <h3>Profundidade</h3>
+          <p class="desc">Combinando velocidades em várias camadas você cria sensação de 3D. Ótimo para hero, cards e backgrounds.</p>
+          <span class="code-tag">data-speed (camadas)</span>
+        </div>
+        <div class="frame">
+          <div class="frame-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">scrollsmoother / depth</span></div>
+          <iframe class="frame-view" data-src="demos/ss-depth.html" loading="lazy" title="ScrollSmoother depth"></iframe>
+        </div>
+      </article>
+    </section>
+
+    <!-- ============================================================
+         FLIP
+         ============================================================ -->
+    <section class="panel" id="panel-flip" data-tab="flip">
+      <div class="panel-intro">
+        <span class="eyebrow">Biblioteca 03</span>
+        <h2>GSAP Flip</h2>
+        <p>Use quando a transição envolve elementos <b>mudando de lugar</b>. O Flip pega o estado antigo e o novo e anima a transição sozinho — sem você calcular posição, escala ou rotação. <b>Clique nos elementos</b> abaixo.</p>
+      </div>
+
+      <article class="demo">
+        <div class="demo-info">
+          <span class="badge">1</span>
+          <h3>Card vira seção</h3>
+          <p class="desc">Um projeto abre em tela cheia. Clique no card para expandir e clique de novo para voltar.</p>
+          <span class="code-tag">Flip.getState → Flip.from</span>
+        </div>
+        <div class="flip-stage" id="flip-1">
+          <div class="fc-card" id="fcCard">
+            <span class="k">Projeto 01</span>
+            <h4>Aurora</h4>
+            <span class="h">clique para expandir ⤢</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="demo">
+        <div class="demo-info">
+          <span class="badge">2</span>
+          <h3>Imagem pequena vira banner</h3>
+          <p class="desc">Transição hero → detalhe: a miniatura cresce e vira um banner full-width.</p>
+          <span class="code-tag">absolute: true</span>
+        </div>
+        <div class="flip-stage" id="flip-2">
+          <div class="fi-img" id="fiImg"></div>
+          <span class="hint-bottom">clique na imagem</span>
+        </div>
+      </article>
+
+      <article class="demo">
+        <div class="demo-info">
+          <span class="badge">3</span>
+          <h3>Grid reorganizando</h3>
+          <p class="desc">Cards trocando de posição com transição suave — perfeito para filtros e ordenação.</p>
+          <span class="code-tag">stagger + Flip.from</span>
+        </div>
+        <div class="flip-stage" id="flip-3">
+          <div class="fg-grid" id="fgGrid"></div>
+          <div class="fg-controls">
+            <button class="flip-btn accent" id="fgShuffle">Embaralhar</button>
+            <button class="flip-btn" data-filter="all">Todos</button>
+            <button class="flip-btn" data-filter="green">Verde</button>
+            <button class="flip-btn" data-filter="blue">Azul</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="demo">
+        <div class="demo-info">
+          <span class="badge">4</span>
+          <h3>Menu expandindo</h3>
+          <p class="desc">Um botão vira um overlay de menu. O mesmo elemento cresce e revela os itens.</p>
+          <span class="code-tag">botão → overlay</span>
+        </div>
+        <div class="flip-stage" id="flip-4">
+          <div class="fm-menu" id="fmMenu">
+            <span class="burger">☰</span>
+            <div class="items">
+              <p class="mtitle">menu</p>
+              <a href="#">Início</a>
+              <a href="#">Projetos</a>
+              <a href="#">Sobre</a>
+              <a href="#">Contato</a>
+            </div>
+          </div>
+          <span class="hint-bottom">clique no botão</span>
+        </div>
+      </article>
+
+      <article class="demo">
+        <div class="demo-info">
+          <span class="badge">5</span>
+          <h3>Elemento compartilhado entre seções</h3>
+          <p class="desc">A mesma imagem “viaja” pelo layout, mudando de slot sem perder a continuidade.</p>
+          <span class="code-tag">mesmo elemento, novo container</span>
+        </div>
+        <div class="flip-stage" id="flip-5">
+          <div class="fs-slots">
+            <div class="fs-slot a" id="slotA">
+              <div class="fs-el" id="sharedEl">FLIP</div>
+            </div>
+            <div class="fs-slot b" id="slotB">slot B</div>
+          </div>
+          <button class="flip-btn accent" id="fsMove" style="position:absolute;bottom:16px;">Mover →</button>
+        </div>
+      </article>
+    </section>
+
+    <!-- ============================================================
+         EFEITOS DE TEXTO
+         ============================================================ -->
+    <section class="panel" id="panel-texto" data-tab="texto">
+      <div class="panel-intro">
+        <span class="eyebrow">Biblioteca 04</span>
+        <h2>Bibliotecas pra efeito em texto</h2>
+        <p>Combinações de plugins GSAP (SplitText, ScrambleText, ScrollTrigger) com CSS e SVG para criar títulos com personalidade. Vários rodam em loop; outros têm <b>▶ Replay</b>.</p>
+      </div>
+
+      <div class="demo-grid text">
+        <article class="demo-card">
+          <iframe class="card-view" data-src="demos/fx-chaos.html" loading="lazy" title="CHAOS"></iframe>
+          <div class="card-body">
+            <div class="top"><span class="n">1</span><h3>CHAOS — borrado/deformado</h3></div>
+            <p class="desc">Texto distorcido com ruído líquido e desfoque.</p>
+            <span class="code-tag">SplitText + feDisplacement + blur</span>
+          </div>
+        </article>
+
+        <article class="demo-card">
+          <iframe class="card-view" data-src="demos/fx-aura.html" loading="lazy" title="AURA"></iframe>
+          <div class="card-body">
+            <div class="top"><span class="n">2</span><h3>AURA — brilho colorido</h3></div>
+            <p class="desc">Aura amarela/roxa pulsando ao redor do texto.</p>
+            <span class="code-tag">text-shadow + GSAP vars CSS</span>
+          </div>
+        </article>
+
+        <article class="demo-card">
+          <iframe class="card-view" data-src="demos/fx-future.html" loading="lazy" title="future glitch"></iframe>
+          <div class="card-body">
+            <div class="top"><span class="n">3</span><h3>future — glitch cromático</h3></div>
+            <p class="desc">Camadas duplicadas em ciano/magenta com fatias.</p>
+            <span class="code-tag">camadas + clip-path + mix-blend</span>
+          </div>
+        </article>
+
+        <article class="demo-card">
+          <iframe class="card-view" data-src="demos/fx-supercollider.html" loading="lazy" title="supercollider"></iframe>
+          <div class="card-body">
+            <div class="top"><span class="n">4</span><h3>supercollider — partículas</h3></div>
+            <p class="desc">O texto se forma e se dissolve em partículas.</p>
+            <span class="code-tag">canvas + GSAP (estilo PixiJS)</span>
+          </div>
+        </article>
+
+        <article class="demo-card">
+          <iframe class="card-view" data-src="demos/fx-scramble.html" loading="lazy" title="scramble"></iframe>
+          <div class="card-body">
+            <div class="top"><span class="n">5</span><h3>Embaralhando — terminal/sci-fi</h3></div>
+            <p class="desc">Caracteres aleatórios revelando a frase final.</p>
+            <span class="code-tag">ScrambleTextPlugin</span>
+          </div>
+        </article>
+
+        <article class="demo-card">
+          <iframe class="card-view" data-src="demos/fx-splittext.html" loading="lazy" title="splittext"></iframe>
+          <div class="card-body">
+            <div class="top"><span class="n">6</span><h3>Letra por letra</h3></div>
+            <p class="desc">Cada caractere entra com stagger e rotação.</p>
+            <span class="code-tag">SplitText</span>
+          </div>
+        </article>
+
+        <article class="demo-card">
+          <iframe class="card-view" data-src="demos/fx-scroll.html" loading="lazy" title="texto no scroll"></iframe>
+          <div class="card-body">
+            <div class="top"><span class="n">7</span><h3>Controlado pelo scroll</h3></div>
+            <p class="desc">As palavras acendem conforme você rola. <b>Role no quadro.</b></p>
+            <span class="code-tag">SplitText + ScrollTrigger</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         BIBLIOTECAS GSAP (catálogo)
+         ============================================================ -->
+    <section class="panel" id="panel-bibliotecas" data-tab="bibliotecas">
+      <div class="panel-intro">
+        <span class="eyebrow">Biblioteca 05</span>
+        <h2>Bibliotecas GSAP</h2>
+        <p>O arsenal completo do GSAP 3.13 — agora 100% gratuito. Cada card é um exemplo vivo do que aquela ferramenta faz. Alguns são interativos (arraste, role, clique).</p>
+      </div>
+
+      <div class="demo-grid">
+        <article class="demo-card">
+          <iframe class="card-view" data-src="demos/lib-core.html" loading="lazy" title="GSAP Core"></iframe>
+          <div class="card-body"><div class="top"><span class="n">1</span><h3>GSAP Core</h3></div>
+            <p class="desc">Base de tudo: to(), from(), fromTo(), CSS, atributos e callbacks.</p><span class="code-tag">gsap.to()</span></div>
+        </article>
+
+        <article class="demo-card">
+          <iframe class="card-view" data-src="demos/lib-timeline.html" loading="lazy" title="Timeline"></iframe>
+          <div class="card-body"><div class="top"><span class="n">2</span><h3>Timeline</h3></div>
+            <p class="desc">Sequência cinematográfica: entrada, sobreposição, reverse, labels.</p><span class="code-tag">gsap.timeline()</span></div>
+        </article>
+
+        <article class="demo-card">
+          <iframe class="card-view" data-src="demos/st-scrub.html" loading="lazy" title="ScrollTrigger"></iframe>
+          <div class="card-body"><div class="top"><span class="n">3</span><h3>ScrollTrigger</h3></div>
+            <p class="desc">O rei do scroll: scrub, pin, snap. <b>Aba dedicada acima.</b></p><span class="code-tag">scrub · pin · snap</span></div>
+        </article>
+
+        <article class="demo-card">
+          <iframe class="card-view" data-src="demos/ss-smooth.html" loading="lazy" title="ScrollSmoother"></iframe>
+          <div class="card-body"><div class="top"><span class="n">4</span><h3>ScrollSmoother</h3></div>
+            <p class="desc">Scroll suave premium com parallax. <b>Aba dedicada acima.</b></p><span class="code-tag">smooth · effects</span></div>
+        </article>
+
+        <article class="demo-card">
+          <iframe class="card-view" data-src="demos/fx-splittext.html" loading="lazy" title="SplitText"></iframe>
+          <div class="card-body"><div class="top"><span class="n">5</span><h3>SplitText</h3></div>
+            <p class="desc">Divide texto em letras, palavras ou linhas para animar.</p><span class="code-tag">SplitText</span></div>
+        </article>
+
+        <article class="demo-card">
+          <iframe class="card-view" data-src="demos/fx-scramble.html" loading="lazy" title="ScrambleText"></iframe>
+          <div class="card-body"><div class="top"><span class="n">6</span><h3>ScrambleText</h3></div>
+            <p class="desc">Texto embaralhando, estilo terminal/hacker/IA.</p><span class="code-tag">ScrambleTextPlugin</span></div>
+        </article>
+
+        <article class="demo-card">
+          <iframe class="card-view" data-src="demos/lib-textplugin.html" loading="lazy" title="TextPlugin"></iframe>
+          <div class="card-body"><div class="top"><span class="n">7</span><h3>TextPlugin</h3></div>
+            <p class="desc">Troca o texto caractere por caractere — efeito de digitação.</p><span class="code-tag">TextPlugin</span></div>
+        </article>
+
+        <article class="demo-card">
+          <iframe class="card-view" data-src="demos/lib-flip.html" loading="lazy" title="Flip"></iframe>
+          <div class="card-body"><div class="top"><span class="n">8</span><h3>Flip</h3></div>
+            <p class="desc">Transições entre estados de layout. <b>Aba dedicada acima.</b></p><span class="code-tag">Flip.from()</span></div>
+        </article>
+
+        <article class="demo-card">
+          <iframe class="card-view" data-src="demos/lib-draggable.html" loading="lazy" title="Draggable"></iframe>
+          <div class="card-body"><div class="top"><span class="n">9</span><h3>Draggable</h3></div>
+            <p class="desc">Elementos arrastáveis com mouse e toque. <b>Arraste!</b></p><span class="code-tag">Draggable.create()</span></div>
+        </article>
+
+        <article class="demo-card">
+          <iframe class="card-view" data-src="demos/lib-inertia.html" loading="lazy" title="InertiaPlugin"></iframe>
+          <div class="card-body"><div class="top"><span class="n">10</span><h3>InertiaPlugin</h3></div>
+            <p class="desc">Impulso e desaceleração física. <b>Arraste e solte com força.</b></p><span class="code-tag">inertia: true</span></div>
+        </article>
+
+        <article class="demo-card">
+          <iframe class="card-view" data-src="demos/lib-observer.html" loading="lazy" title="Observer"></iframe>
+          <div class="card-body"><div class="top"><span class="n">11</span><h3>Observer</h3></div>
+            <p class="desc">Detecta wheel, swipe, direção e velocidade. <b>Role/arraste.</b></p><span class="code-tag">Observer.create()</span></div>
+        </article>
+
+        <article class="demo-card">
+          <iframe class="card-view" data-src="demos/lib-scrollto.html" loading="lazy" title="ScrollToPlugin"></iframe>
+          <div class="card-body"><div class="top"><span class="n">12</span><h3>ScrollToPlugin</h3></div>
+            <p class="desc">Rola suavemente até uma seção. <b>Clique nos números.</b></p><span class="code-tag">scrollTo</span></div>
+        </article>
+
+        <article class="demo-card">
+          <iframe class="card-view" data-src="demos/lib-motionpath.html" loading="lazy" title="MotionPathPlugin"></iframe>
+          <div class="card-body"><div class="top"><span class="n">13</span><h3>MotionPathPlugin</h3></div>
+            <p class="desc">Move elementos seguindo um path SVG — órbitas e voos.</p><span class="code-tag">motionPath</span></div>
+        </article>
+
+        <article class="demo-card">
+          <iframe class="card-view" data-src="demos/lib-drawsvg.html" loading="lazy" title="DrawSVGPlugin"></iframe>
+          <div class="card-body"><div class="top"><span class="n">14</span><h3>DrawSVGPlugin</h3></div>
+            <p class="desc">Desenha traços SVG progressivamente — ícones e logos.</p><span class="code-tag">drawSVG</span></div>
+        </article>
+
+        <article class="demo-card">
+          <iframe class="card-view" data-src="demos/lib-morphsvg.html" loading="lazy" title="MorphSVGPlugin"></iframe>
+          <div class="card-body"><div class="top"><span class="n">15</span><h3>MorphSVGPlugin</h3></div>
+            <p class="desc">Transforma um path SVG em outro — formas líquidas.</p><span class="code-tag">morphSVG</span></div>
+        </article>
+
+        <article class="demo-card">
+          <iframe class="card-view" data-src="demos/lib-customease.html" loading="lazy" title="CustomEase"></iframe>
+          <div class="card-body"><div class="top"><span class="n">16</span><h3>CustomEase</h3></div>
+            <p class="desc">Curvas de easing personalizadas — a "assinatura" do movimento.</p><span class="code-tag">CustomEase.create()</span></div>
+        </article>
+
+        <article class="demo-card">
+          <iframe class="card-view" data-src="demos/lib-easepack.html" loading="lazy" title="EasePack"></iframe>
+          <div class="card-body"><div class="top"><span class="n">17</span><h3>EasePack</h3></div>
+            <p class="desc">Eases extras: RoughEase (tremor) e SlowMo (câmera lenta).</p><span class="code-tag">rough() · slow()</span></div>
+        </article>
+
+        <article class="demo-card">
+          <iframe class="card-view" data-src="demos/lib-customwiggle.html" loading="lazy" title="CustomWiggle"></iframe>
+          <div class="card-body"><div class="top"><span class="n">18</span><h3>CustomWiggle</h3></div>
+            <p class="desc">Vibração/impacto controlado — energia e alerta visual.</p><span class="code-tag">CustomWiggle.create()</span></div>
+        </article>
+
+        <article class="demo-card">
+          <iframe class="card-view" data-src="demos/lib-custombounce.html" loading="lazy" title="CustomBounce"></iframe>
+          <div class="card-body"><div class="top"><span class="n">19</span><h3>CustomBounce</h3></div>
+            <p class="desc">Bounce customizável com squash &amp; stretch cartunesco.</p><span class="code-tag">CustomBounce.create()</span></div>
+        </article>
+
+        <article class="demo-card">
+          <div class="code-view"><pre><span class="cm">// hook oficial pra React/Next/Vite</span>
+<span class="kw">import</span> { useGSAP } <span class="kw">from</span> <span class="str">"@gsap/react"</span>;
+
+<span class="kw">function</span> <span class="fn">Box</span>() {
+  <span class="kw">const</span> ref = <span class="fn">useRef</span>();
+
+  <span class="fn">useGSAP</span>(() => {
+    <span class="cm">// cleanup automático e seguro</span>
+    gsap.<span class="fn">to</span>(<span class="str">".box"</span>, {
+      rotation: 360,
+      duration: 2
+    });
+  }, { scope: ref });
+
+  <span class="kw">return</span> &lt;div ref={ref}&gt;…&lt;/div&gt;;
+}</pre></div>
+          <div class="card-body"><div class="top"><span class="n">20</span><h3>useGSAP()</h3></div>
+            <p class="desc">Hook oficial pra usar GSAP em React com cleanup mais seguro.</p><span class="code-tag">@gsap/react</span></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         EXTRAS
+         ============================================================ -->
+    <section class="panel" id="panel-extras" data-tab="extras">
+      <div class="panel-intro">
+        <span class="eyebrow">Bônus</span>
+        <h2>Tecnologias que combinam com GSAP</h2>
+        <p>Fora do GSAP, mas excelentes companheiras: <b>Lenis</b> (smooth scroll leve), a <b>View Transition API</b> nativa e <b>Barba.js / Swup</b> para transições entre páginas.</p>
+      </div>
+
+      <div class="extra-block">
+        <div class="extra-head">
+          <span class="pill">smooth scroll</span>
+          <h3>Lenis</h3>
+          <p>Alternativa leve ao ScrollSmoother, muito usada em React/Vite. Combina com ScrollTrigger para parallax e reveals. Aqui o Lenis alimenta as animações do GSAP.</p>
+        </div>
+        <div class="frame">
+          <div class="frame-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">extras / lenis</span></div>
+          <iframe class="frame-view" data-src="demos/lenis.html" loading="lazy" title="Lenis smooth scroll"></iframe>
+        </div>
+      </div>
+
+      <div class="extra-block">
+        <div class="extra-head">
+          <span class="pill">nativo do navegador</span>
+          <h3>View Transition API</h3>
+          <p>Ótima para trocar de página/estado com fade ou slide, ou um card da lista virando a página de detalhe — sem biblioteca pesada. Clique nos cards abaixo.</p>
+        </div>
+        <div class="frame">
+          <div class="frame-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">extras / view-transition</span></div>
+          <iframe class="frame-view" data-src="demos/view-transition.html" loading="lazy" title="View Transition API"></iframe>
+        </div>
+      </div>
+
+      <div class="extra-block">
+        <div class="extra-head">
+          <span class="pill">transição entre páginas</span>
+          <h3>Barba.js / Swup</h3>
+          <p>Para transições entre páginas HTML reais (home → projetos → contato), trocando o conteúdo sem reload seco e animando entrada e saída com GSAP. Clique no menu.</p>
+        </div>
+        <div class="frame">
+          <div class="frame-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">extras / barba · swup</span></div>
+          <iframe class="frame-view" data-src="demos/barba.html" loading="lazy" title="Barba / Swup page transitions"></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>Demonstração construída com GSAP 3.13 (ScrollTrigger · ScrollSmoother · Flip) + Lenis · View Transition API · Barba/Swup.</span>
+    <div class="libs">
+      <span>gsap</span><span>ScrollTrigger</span><span>ScrollSmoother</span><span>Flip</span><span>Lenis</span><span>Barba</span>
+    </div>
+  </footer>
+
+  <!-- GSAP para o shell (animações de entrada) e para os demos Flip -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Flip.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

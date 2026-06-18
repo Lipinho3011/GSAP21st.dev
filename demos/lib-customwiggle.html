@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CustomWiggle</title>
+  <link rel="stylesheet" href="demo-base.css" />
+  <style>
+    .sub { color: var(--muted); font-size: 13px; }
+    .bell {
+      height: 92px; display: flex; align-items: flex-start; justify-content: center;
+    }
+    .bell .ico {
+      font-size: 70px; line-height: 1; transform-origin: 50% 0%; display: inline-block;
+      filter: drop-shadow(0 0 14px rgba(255,209,0,.4));
+    }
+  </style>
+</head>
+<body>
+  <div class="corner-tag"><span class="tag">CustomWiggle</span></div>
+  <div class="stage">
+    <div class="bell"><span class="ico" id="ico">🔔</span></div>
+    <p class="sub">vibração/impacto controlado (wiggle)</p>
+  </div>
+  <button class="replay" onclick="play()">▶ Replay</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/CustomEase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/CustomWiggle.min.js"></script>
+  <script>
+    gsap.registerPlugin(CustomEase, CustomWiggle);
+    CustomWiggle.create("ring", { wiggles: 10, type: "easeOut" });
+    function play() {
+      gsap.fromTo("#ico", { rotation: -28 }, { rotation: 0, duration: 1.6, ease: "ring" });
+    }
+    play();
+  </script>
+</body>
+</html>

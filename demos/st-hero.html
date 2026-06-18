@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ScrollTrigger · hero → próxima seção</title>
+  <link rel="stylesheet" href="demo-base.css" />
+  <style>
+    .hero {
+      height: 100vh;
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(80% 80% at 50% 30%, rgba(10,228,72,.16), transparent 70%), #07090c;
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 11vw, 7rem);
+      font-weight: 900;
+      letter-spacing: -.04em;
+      line-height: .95;
+      text-align: center;
+    }
+    .hero .glow {
+      position: absolute; inset: 0; z-index: -1;
+      background: radial-gradient(40% 30% at 50% 60%, rgba(56,189,248,.25), transparent 70%);
+    }
+    .next {
+      height: 100vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      background: linear-gradient(180deg, #0a0f0b, #04140b);
+    }
+    .next .card {
+      width: min(82%, 420px);
+      padding: 40px 30px;
+      border: 1px solid rgba(10,228,72,.3);
+      border-radius: 22px;
+      background: rgba(10,228,72,.06);
+    }
+    .next h2 { font-size: 2rem; margin-bottom: 10px; }
+    .label { position: fixed; top: 16px; left: 16px; z-index: 41; }
+  </style>
+</head>
+<body>
+  <div class="label"><span class="tag">pin + scrub + timeline</span></div>
+
+  <section class="hero" id="hero">
+    <div class="glow"></div>
+    <h1 id="title">HERO</h1>
+  </section>
+
+  <section class="next">
+    <div class="card">
+      <h2>Próxima seção</h2>
+      <p>O hero deu zoom, sumiu e revelou esta seção — tudo amarrado ao scroll numa só timeline.</p>
+    </div>
+  </section>
+
+  <div class="scroll-hint"><span class="arrow">↓</span> role para o hero virar a próxima seção</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#hero",
+        start: "top top",
+        end: "+=120%",
+        pin: true,
+        scrub: true
+      }
+    });
+
+    tl.to("#title", { scale: 6, opacity: 0, ease: "power2.in" }, 0)
+      .to("#hero .glow", { opacity: 0, ease: "none" }, 0)
+      .to("#hero", { backgroundColor: "#04140b", ease: "none" }, 0);
+  </script>
+</body>
+</html>

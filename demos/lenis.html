@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lenis · smooth scroll</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.css" />
+  <link rel="stylesheet" href="demo-base.css" />
+  <style>
+    .block { padding: 84px 28px; min-height: 60vh; display: flex; flex-direction: column; justify-content: center; }
+    .block:nth-child(even) { background: var(--bg-2); }
+    .reveal { opacity: 0; transform: translateY(40px); }
+    h2 { font-size: clamp(1.7rem, 7vw, 3rem); font-weight: 800; letter-spacing: -.02em; }
+    p { color: var(--muted); margin-top: 12px; max-width: 46ch; }
+    .label { position: fixed; top: 16px; left: 16px; z-index: 41; }
+  </style>
+</head>
+<body>
+  <div class="label"><span class="tag">Lenis + GSAP</span></div>
+
+  <section class="block"><h2 class="reveal">Lenis</h2><p class="reveal">Smooth scroll leve, ideal para React/Vite. Aqui ele alimenta o ScrollTrigger do GSAP.</p></section>
+  <section class="block"><h2 class="reveal">Leve e flexível</h2><p class="reveal">Você controla o scroll manualmente quando quiser, sem peso extra.</p></section>
+  <section class="block"><h2 class="reveal">Combina com ScrollTrigger</h2><p class="reveal">Cada bloco aparece com reveal disparado pelo scroll suave do Lenis.</p></section>
+  <section class="block"><h2 class="reveal">Parallax simples</h2><p class="reveal">Ótimo quando você não quer/pode usar o ScrollSmoother.</p></section>
+  <section class="block"><h2 class="reveal">Fim</h2><p class="reveal">Volte ao topo para repetir.</p></section>
+
+  <div class="scroll-hint"><span class="arrow">↓</span> role com suavidade do Lenis</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // 1) cria o Lenis (smooth scroll)
+    const lenis = new Lenis();
+
+    // 2) conecta o Lenis ao ticker do GSAP -> ScrollTrigger entende o scroll
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add((time) => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+
+    // 3) reveals controlados pelo scroll
+    gsap.utils.toArray(".reveal").forEach((el) => {
+      gsap.to(el, {
+        opacity: 1, y: 0, duration: 0.8, ease: "power3.out",
+        scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none reverse" }
+      });
+    });
+  </script>
+</body>
+</html>

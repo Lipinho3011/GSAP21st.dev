@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Observer</title>
+  <link rel="stylesheet" href="demo-base.css" />
+  <style>
+    body { overflow: hidden; }
+    .viewport { position: absolute; inset: 0; overflow: hidden; }
+    .sec {
+      position: absolute; inset: 0; display: grid; place-items: center; text-align: center;
+      font-size: clamp(2.4rem, 14vw, 6rem); font-weight: 900; letter-spacing: -.04em;
+      will-change: transform;
+    }
+    .s0 { background: radial-gradient(60% 60% at 50% 40%, rgba(10,228,72,.18), transparent), #0a0f0b; }
+    .s1 { background: radial-gradient(60% 60% at 50% 40%, rgba(56,189,248,.18), transparent), #08121a; }
+    .s2 { background: radial-gradient(60% 60% at 50% 40%, rgba(167,139,250,.20), transparent), #0e0a18; }
+    .hint-bottom { position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%); font-size: 12px; color: var(--muted); z-index: 5; }
+  </style>
+</head>
+<body>
+  <div class="corner-tag"><span class="tag">Observer · wheel/swipe</span></div>
+  <div class="viewport" id="vp">
+    <section class="sec s0">01</section>
+    <section class="sec s1">02</section>
+    <section class="sec s2">03</section>
+  </div>
+  <span class="hint-bottom">role a roda ou arraste ↑ ↓ para trocar de seção</span>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Observer.min.js"></script>
+  <script>
+    gsap.registerPlugin(Observer);
+    const secs = gsap.utils.toArray(".sec");
+    gsap.set(secs, { yPercent: (i) => i * 100 });
+    let current = 0, animating = false;
+
+    function go(dir) {
+      const next = current + dir;
+      if (next < 0 || next >= secs.length || animating) return;
+      animating = true;
+      current = next;
+      gsap.to(secs, {
+        yPercent: (i) => (i - current) * 100,
+        duration: 0.7, ease: "power2.inOut",
+        onComplete: () => { animating = false; }
+      });
+    }
+
+    Observer.create({
+      target: "#vp",
+      type: "wheel,touch,pointer",
+      onUp: () => go(1),
+      onDown: () => go(-1),
+      wheelSpeed: -1,
+      tolerance: 12,
+      preventDefault: true
+    });
+  </script>
+</body>
+</html>

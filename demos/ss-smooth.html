@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ScrollSmoother · scroll suave</title>
+  <link rel="stylesheet" href="demo-base.css" />
+  <style>
+    .block { padding: 80px 28px; }
+    .block:nth-child(odd) { background: var(--bg); }
+    .block:nth-child(even) { background: var(--bg-2); }
+    .block h2 { font-size: clamp(1.6rem, 7vw, 3rem); font-weight: 800; letter-spacing: -.02em; }
+    .block p { margin-top: 12px; color: var(--muted); max-width: 46ch; }
+    .label { position: fixed; top: 16px; left: 16px; z-index: 41; }
+  </style>
+</head>
+<body>
+  <div class="label"><span class="tag">smooth: 1.5</span></div>
+
+  <div id="smooth-wrapper">
+    <div id="smooth-content">
+      <section class="block"><h2>Scroll suave</h2><p>Repare como o scroll “desliza” em vez de pular. O ScrollSmoother suaviza o movimento mantendo o scroll nativo.</p></section>
+      <section class="block"><h2>Macio</h2><p>Sem barra falsa, sem travar. A inércia faz o site parecer premium.</p></section>
+      <section class="block"><h2>Fluido</h2><p>Ótimo para sites estilo agência / Awwwards.</p></section>
+      <section class="block"><h2>Contínuo</h2><p>Cada parada é amortecida com elegância.</p></section>
+      <section class="block"><h2>Fim</h2><p>Volte ao topo para sentir de novo.</p></section>
+    </div>
+  </div>
+
+  <div class="scroll-hint"><span class="arrow">↓</span> role e sinta a suavidade</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollSmoother.min.js"></script>
+  <script>
+    gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
+    ScrollSmoother.create({
+      wrapper: "#smooth-wrapper",
+      content: "#smooth-content",
+      smooth: 1.5,      // intensidade do amortecimento
+      effects: true
+    });
+  </script>
+</body>
+</html>

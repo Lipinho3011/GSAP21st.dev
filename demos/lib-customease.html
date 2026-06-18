@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CustomEase</title>
+  <link rel="stylesheet" href="demo-base.css" />
+  <style>
+    .sub { color: var(--muted); font-size: 13px; }
+    .lane { width: min(86%, 320px); display: grid; gap: 18px; }
+    .row { display: grid; grid-template-columns: 56px 1fr; align-items: center; gap: 10px; }
+    .row .lbl { font-size: 11px; color: var(--muted); font-family: "JetBrains Mono", monospace; }
+    .track { position: relative; height: 30px; border-radius: 99px; background: var(--surface); border: 1px solid var(--border); }
+    .dot { position: absolute; top: 50%; left: 4px; width: 22px; height: 22px; margin-top: -11px; border-radius: 50%; }
+    .d-lin { background: #5e6675; }
+    .d-cus { background: var(--accent); box-shadow: 0 0 14px rgba(10,228,72,.5); }
+  </style>
+</head>
+<body>
+  <div class="corner-tag"><span class="tag">CustomEase</span></div>
+  <div class="stage">
+    <div class="lane">
+      <div class="row"><span class="lbl">linear</span><div class="track"><div class="dot d-lin" id="lin"></div></div></div>
+      <div class="row"><span class="lbl">custom</span><div class="track"><div class="dot d-cus" id="cus"></div></div></div>
+    </div>
+    <p class="sub">curva de easing com "assinatura" própria</p>
+  </div>
+  <button class="replay" onclick="play()">▶ Replay</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/CustomEase.min.js"></script>
+  <script>
+    gsap.registerPlugin(CustomEase);
+    CustomEase.create("sig", "M0,0 C0.14,0 0.2,1.4 0.4,1.4 0.6,1.4 0.7,-0.2 0.86,0.86 0.94,1.05 0.98,1 1,1");
+    function play() {
+      const x = () => "calc(100% - 26px)";
+      gsap.fromTo("#lin", { left: 4 }, { left: x(), duration: 1.6, ease: "none", repeat: 1, yoyo: true });
+      gsap.fromTo("#cus", { left: 4 }, { left: x(), duration: 1.6, ease: "sig", repeat: 1, yoyo: true });
+    }
+    play();
+  </script>
+</body>
+</html>

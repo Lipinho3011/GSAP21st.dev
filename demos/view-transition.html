@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>View Transition API</title>
+  <link rel="stylesheet" href="demo-base.css" />
+  <style>
+    body { padding: 24px; }
+    .label { margin-bottom: 16px; }
+
+    /* LISTA */
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .card {
+      border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
+      background: var(--surface); cursor: pointer; text-align: left;
+      transition: transform .2s ease, border-color .2s ease;
+    }
+    .card:hover { transform: translateY(-3px); border-color: rgba(10,228,72,.4); }
+    .thumb { height: 90px; }
+    .card .body { padding: 12px 14px; }
+    .card h3 { font-size: 1rem; }
+    .card small { color: var(--muted); }
+
+    /* DETALHE */
+    .detail { display: none; }
+    .detail.open { display: block; }
+    .detail .hero-img { height: 200px; border-radius: 18px; }
+    .detail h2 { font-size: 1.8rem; margin: 16px 0 8px; }
+    .detail p { color: var(--muted); max-width: 50ch; }
+    .back {
+      margin-top: 18px; padding: 10px 16px; border-radius: 99px; cursor: pointer;
+      border: 1px solid var(--border); background: var(--surface); color: var(--text); font-weight: 600;
+    }
+    .back:hover { border-color: rgba(10,228,72,.4); }
+
+    .g1 { background: linear-gradient(135deg,#0ae448,#0b7a35); }
+    .g2 { background: linear-gradient(135deg,#38bdf8,#1d6fae); }
+    .g3 { background: linear-gradient(135deg,#a78bfa,#6d4ed6); }
+    .g4 { background: linear-gradient(135deg,#f472b6,#b03a76); }
+
+    .note { margin-top: 18px; font-size: 12px; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="label"><span class="tag">document.startViewTransition()</span></div>
+
+  <!-- LISTA -->
+  <div class="grid" id="grid"></div>
+
+  <!-- DETALHE -->
+  <div class="detail" id="detail">
+    <div class="hero-img" id="detailImg"></div>
+    <h2 id="detailTitle"></h2>
+    <p>Repare na transição: o card cresce e vira a página de detalhe (elemento compartilhado). Sem biblioteca pesada — é nativo do navegador.</p>
+    <button class="back" id="back">← voltar</button>
+  </div>
+
+  <p class="note">Dica: funciona em navegadores baseados em Chromium. Em outros, troca sem animação (degrade suave).</p>
+
+  <script>
+    const items = [
+      { id: 1, t: "Projeto Aurora", c: "g1" },
+      { id: 2, t: "Estúdio Onda",  c: "g2" },
+      { id: 3, t: "Coleção Nebula", c: "g3" },
+      { id: 4, t: "Caso Magenta",  c: "g4" },
+    ];
+
+    const grid = document.getElementById("grid");
+    const detail = document.getElementById("detail");
+    const detailImg = document.getElementById("detailImg");
+    const detailTitle = document.getElementById("detailTitle");
+
+    items.forEach((it) => {
+      const card = document.createElement("button");
+      card.className = "card";
+      card.innerHTML = `<div class="thumb ${it.c}" data-vt="img-${it.id}"></div>
+                        <div class="body"><h3>${it.t}</h3><small>ver detalhe →</small></div>`;
+      card.addEventListener("click", () => openDetail(it));
+      grid.appendChild(card);
+    });
+
+    function withTransition(fn) {
+      if (document.startViewTransition) document.startViewTransition(fn);
+      else fn();
+    }
+
+    function openDetail(it) {
+      withTransition(() => {
+        // o elemento que "viaja" recebe o mesmo view-transition-name
+        document.querySelectorAll('[data-vt]').forEach(el => el.style.viewTransitionName = "");
+        detailImg.className = "hero-img " + it.c;
+        detailImg.style.viewTransitionName = "shared-img";
+        detailTitle.textContent = it.t;
+        grid.style.display = "none";
+        detail.classList.add("open");
+      });
+    }
+
+    document.getElementById("back").addEventListener("click", () => {
+      withTransition(() => {
+        detailImg.style.viewTransitionName = "";
+        detail.classList.remove("open");
+        grid.style.display = "grid";
+      });
+    });
+  </script>
+</body>
+</html>

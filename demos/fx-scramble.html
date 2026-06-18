@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ScrambleText · terminal/sci-fi</title>
+  <link rel="stylesheet" href="demo-base.css" />
+  <style>
+    .big {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-weight: 700;
+      color: var(--accent);
+      text-shadow: 0 0 18px rgba(10,228,72,.35);
+      font-size: clamp(1.4rem, 7vw, 2.6rem);
+    }
+    .sub { color: var(--muted); font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div class="corner-tag"><span class="tag">ScrambleTextPlugin</span></div>
+  <div class="stage">
+    <div class="big" id="h">_</div>
+    <p class="sub">texto embaralhando estilo hacker</p>
+  </div>
+  <button class="replay" onclick="play()">▶ Replay</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrambleTextPlugin.min.js"></script>
+  <script>
+    gsap.registerPlugin(ScrambleTextPlugin);
+    const phrases = ["INICIANDO SISTEMA", "ACESSO CONCEDIDO", "GSAP // ONLINE"];
+    let i = 0;
+    function play() {
+      const text = phrases[i % phrases.length];
+      i++;
+      gsap.to("#h", {
+        duration: 2,
+        scrambleText: { text: text, chars: "upperCase", revealDelay: 0.5, speed: 0.5 }
+      });
+    }
+    play();
+    setInterval(play, 3200);
+  </script>
+</body>
+</html>

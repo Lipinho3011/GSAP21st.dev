@@ -1,0 +1,161 @@
+/* ============================================================
+   Base compartilhada por todos os demos (carregados em iframe)
+   ============================================================ */
+:root {
+  --bg: #07090c;
+  --bg-2: #0c1016;
+  --surface: rgba(255, 255, 255, 0.04);
+  --border: rgba(255, 255, 255, 0.10);
+  --text: #e7ecf2;
+  --muted: #8b95a5;
+  --accent: #0ae448;
+  --accent-2: #38bdf8;
+  --accent-3: #a78bfa;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { height: 100%; }
+
+body {
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Scrollbar discreta dentro dos demos */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 99px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.22); background-clip: content-box; }
+
+/* Etiqueta fixa "role aqui" dentro do demo */
+.scroll-hint {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text);
+  background: rgba(10, 12, 16, 0.7);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  backdrop-filter: blur(8px);
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.scroll-hint .arrow {
+  display: inline-block;
+  animation: hintBounce 1.4s ease-in-out infinite;
+}
+@keyframes hintBounce {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(4px); opacity: 1; }
+}
+
+/* Etiqueta de seção / passo */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(10, 228, 72, 0.10);
+  border: 1px solid rgba(10, 228, 72, 0.30);
+  border-radius: 99px;
+}
+
+.demo-section {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 48px 28px;
+}
+
+.demo-section h2 {
+  font-size: clamp(1.8rem, 6vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.demo-section p {
+  margin-top: 14px;
+  max-width: 44ch;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.muted { color: var(--muted); }
+.center { text-align: center; }
+
+/* Palco central para demos de biblioteca/efeito (não-scroll) */
+.stage {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 26px;
+  gap: 14px;
+  position: relative;
+}
+.stage .big {
+  font-size: clamp(2rem, 11vw, 4.2rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+/* Botão "Replay" reutilizável */
+.replay {
+  position: fixed;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  background: rgba(10, 12, 16, 0.7);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  padding: 8px 16px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: border-color 0.2s, color 0.2s, transform 0.1s;
+}
+.replay:hover { border-color: var(--accent); color: var(--accent); }
+.replay:active { transform: translateX(-50%) scale(0.95); }
+
+/* Etiqueta de plugin no canto */
+.corner-tag {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 41;
+}

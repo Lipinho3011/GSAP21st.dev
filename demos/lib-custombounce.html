@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CustomBounce</title>
+  <link rel="stylesheet" href="demo-base.css" />
+  <style>
+    .arena { position: relative; width: 160px; height: 260px; }
+    .floor { position: absolute; bottom: 40px; left: -30px; right: -30px; height: 2px; background: var(--border); }
+    .ball {
+      position: absolute; left: 50%; bottom: 42px; width: 64px; height: 64px; margin-left: -32px;
+      border-radius: 50%; background: radial-gradient(circle at 35% 30%, #7dffa6, #0ae448);
+      box-shadow: 0 0 24px rgba(10,228,72,.5);
+    }
+    .sub { position: absolute; bottom: 6px; left: 0; right: 0; color: var(--muted); font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div class="corner-tag"><span class="tag">CustomBounce</span></div>
+  <div class="stage">
+    <div class="arena">
+      <div class="floor"></div>
+      <div class="ball" id="ball"></div>
+      <p class="sub">bounce com squash &amp; stretch</p>
+    </div>
+  </div>
+  <button class="replay" onclick="play()">▶ Replay</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/CustomEase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/CustomBounce.min.js"></script>
+  <script>
+    gsap.registerPlugin(CustomEase, CustomBounce);
+    CustomBounce.create("bnc", { strength: 0.65, squash: 3, squashID: "bnc-squash" });
+    function play() {
+      gsap.fromTo("#ball", { y: -180 }, { y: 0, duration: 1.8, ease: "bnc" });
+      gsap.fromTo("#ball",
+        { scaleX: 1, scaleY: 1 },
+        { scaleX: 1, scaleY: 1, duration: 1.8, ease: "bnc-squash", transformOrigin: "bottom center" });
+    }
+    play();
+  </script>
+</body>
+</html>

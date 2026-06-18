@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Barba.js / Swup · transição entre páginas</title>
+  <link rel="stylesheet" href="demo-base.css" />
+  <style>
+    body { display: flex; flex-direction: column; height: 100vh; }
+    nav {
+      display: flex; gap: 6px; padding: 14px 18px;
+      border-bottom: 1px solid var(--border); background: rgba(10,12,16,.6); backdrop-filter: blur(8px);
+      position: sticky; top: 0; z-index: 10;
+    }
+    nav .brand { font-weight: 800; margin-right: auto; letter-spacing: -.01em; }
+    nav button {
+      padding: 8px 14px; border-radius: 99px; cursor: pointer; font-weight: 600; font-size: 13px;
+      border: 1px solid var(--border); background: transparent; color: var(--muted);
+    }
+    nav button.active { color: #04240f; background: var(--accent); border-color: var(--accent); }
+
+    main { position: relative; flex: 1; overflow: hidden; }
+    .page {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 32px;
+    }
+    .page h1 { font-size: clamp(2rem, 9vw, 4rem); font-weight: 900; letter-spacing: -.03em; }
+    .page p { color: var(--muted); margin-top: 12px; max-width: 44ch; }
+    .ph { background: radial-gradient(70% 60% at 50% 40%, rgba(10,228,72,.16), transparent), var(--bg); }
+    .pp { background: radial-gradient(70% 60% at 50% 40%, rgba(56,189,248,.16), transparent), var(--bg); }
+    .pc { background: radial-gradient(70% 60% at 50% 40%, rgba(167,139,250,.18), transparent), var(--bg); }
+    .label { position: absolute; top: 70px; left: 18px; z-index: 9; }
+  </style>
+</head>
+<body>
+  <div class="label"><span class="tag">padrão Barba / Swup</span></div>
+
+  <nav>
+    <span class="brand">⌁ atelier</span>
+    <button data-go="home" class="active">Home</button>
+    <button data-go="projetos">Projetos</button>
+    <button data-go="contato">Contato</button>
+  </nav>
+
+  <main id="main"></main>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script>
+    // Barba.js / Swup fazem exatamente isto: animam a SAÍDA da página atual,
+    // trocam o conteúdo, e animam a ENTRADA da nova — sem reload seco.
+    // (Demo offline: roteador mínimo reproduzindo o mesmo ciclo leave -> enter.)
+
+    const pages = {
+      home:     { cls: "ph", h: "Home",     p: "Bem-vindo. Clique em Projetos ou Contato — a página sai e a nova entra com GSAP." },
+      projetos: { cls: "pp", h: "Projetos", p: "Conteúdo trocado sem recarregar a página inteira." },
+      contato:  { cls: "pc", h: "Contato",  p: "É assim que Barba.js e Swup orquestram navegações animadas." },
+    };
+
+    const main = document.getElementById("main");
+    let current = null;
+
+    function render(name) {
+      const d = pages[name];
+      const el = document.createElement("section");
+      el.className = "page " + d.cls;
+      el.innerHTML = `<h1>${d.h}</h1><p>${d.p}</p>`;
+      return el;
+    }
+
+    function go(name) {
+      const next = render(name);
+      gsap.set(next, { autoAlpha: 0, y: 30 });
+      main.appendChild(next);
+
+      const tl = gsap.timeline();
+      if (current) {
+        tl.to(current, { autoAlpha: 0, y: -30, duration: 0.4, ease: "power2.in",
+          onComplete: () => current && current.remove() }, 0);
+      }
+      tl.to(next, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out" }, current ? 0.25 : 0);
+      current = next;
+    }
+
+    document.querySelectorAll("nav [data-go]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("nav [data-go]").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        go(btn.dataset.go);
+      });
+    });
+
+    go("home");
+  </script>
+</body>
+</html>

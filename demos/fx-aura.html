@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AURA · brilho colorido</title>
+  <link rel="stylesheet" href="demo-base.css" />
+  <style>
+    body { background: #050407; }
+    .big {
+      --b: 18px;
+      color: #fff;
+      text-shadow:
+        0 0 var(--b) #ffd000,
+        0 0 calc(var(--b) * 2) #ff9d00,
+        0 0 calc(var(--b) * 3) #a855f7,
+        0 0 calc(var(--b) * 5) #7c3aed;
+    }
+    .sub { color: var(--muted); font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div class="corner-tag"><span class="tag">text-shadow + GSAP vars</span></div>
+  <div class="stage">
+    <h1 class="big" id="h">AURA</h1>
+    <p class="sub">GSAP animando variáveis CSS de brilho</p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script>
+    // pulso do brilho (anima a variável CSS --b)
+    gsap.to("#h", { "--b": "40px", duration: 1.4, repeat: -1, yoyo: true, ease: "sine.inOut" });
+    // deriva de cor (gira o matiz do brilho)
+    gsap.to("#h", { filter: "hue-rotate(360deg)", duration: 8, repeat: -1, ease: "none" });
+  </script>
+</body>
+</html>

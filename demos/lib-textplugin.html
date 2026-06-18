@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TextPlugin · typing</title>
+  <link rel="stylesheet" href="demo-base.css" />
+  <style>
+    .type {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: clamp(1.1rem, 5vw, 1.8rem); font-weight: 600; color: #fff;
+      min-height: 1.4em;
+    }
+    .type::after { content: "▋"; color: var(--accent); animation: blink 1s steps(1) infinite; margin-left: 2px; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .sub { color: var(--muted); font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div class="corner-tag"><span class="tag">TextPlugin</span></div>
+  <div class="stage">
+    <div class="type" id="t"></div>
+    <p class="sub">troca o texto, caractere por caractere</p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/TextPlugin.min.js"></script>
+  <script>
+    gsap.registerPlugin(TextPlugin);
+    const lines = ["Olá 👋", "Isto é o TextPlugin", "Efeito de digitação", "feito com GSAP ✨"];
+    const tl = gsap.timeline({ repeat: -1 });
+    lines.forEach((line) => {
+      tl.to("#t", { duration: line.length * 0.07, text: line, ease: "none" })
+        .to("#t", { duration: 0.5, text: "", ease: "none" }, "+=1");
+    });
+  </script>
+</body>
+</html>
